@@ -157,11 +157,12 @@ fi
 
 # Init PKI dirs and build CA certs
 ./easyrsa init-pki
-./easyrsa build-ca nopass
+openssl rand -writerand /etc/openvpn/easy-rsa/pki/.rnd
+./easyrsa --batch build-ca nopass
 # Generate Diffie-Hellman parameters
-./easyrsa gen-dh
+./easyrsa --batch gen-dh
 # Genrate server keypair
-./easyrsa build-server-full server nopass
+./easyrsa --batch build-server-full server nopass
 
 # Generate shared-secret for TLS Authentication
 openvpn --genkey --secret pki/ta.key
